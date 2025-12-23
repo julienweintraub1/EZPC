@@ -1,0 +1,175 @@
+﻿{
+  "gpu": {
+    "nvidia": {
+      "name": "NVIDIA",
+      "driverUrl": "https://www.nvidia.com/Download/index.aspx",
+      "autoDetectUrl": "https://www.nvidia.com/en-us/geforce/drivers/",
+      "latestDriverVersion": "566.14",
+      "monitoringTools": {
+        "name": "MSI Afterburner (Recommended)",
+        "url": "https://www.msi.com/Landing/afterburner/graphics-cards",
+        "description": "Free tool for GPU monitoring, temperature tracking, and safe overclocking.",
+        "features": ["Real-time temperature monitoring", "Fan speed control", "Safe overclocking", "Performance graphs"]
+      },
+      "instructions": [
+        "1. Visit the NVIDIA Driver Downloads page",
+        "2. Click 'Auto-Detect Your GPU' or manually select GeForce Series",
+        "3. Select your GPU model (e.g., GTX 1060)",
+        "4. Download the latest Game Ready Driver",
+        "5. Run the installer and select 'Express Installation'",
+        "6. Restart your PC after installation completes"
+      ]
+    },
+    "amd": {
+      "name": "AMD",
+      "driverUrl": "https://www.amd.com/en/support",
+      "autoDetectUrl": "https://www.amd.com/en/support/auto-detect-tool",
+      "latestDriverVersion": "24.12.1",
+      "monitoringTools": {
+        "name": "AMD Radeon Software",
+        "url": "https://www.amd.com/en/support",
+        "description": "AMD's official software includes built-in monitoring, tuning, and overclocking features.",
+        "features": ["Performance monitoring", "Temperature tracking", "Radeon Chill", "Performance tuning", "Auto overclocking"]
+      },
+      "instructions": [
+        "1. Visit AMD Support and Downloads page",
+        "2. Use the Auto-Detect tool or manually select your GPU",
+        "3. Download AMD Software: Adrenalin Edition",
+        "4. Run the installer",
+        "5. Follow the installation wizard",
+        "6. Restart your PC when prompted"
+      ]
+    },
+    "intel": {
+      "name": "Intel",
+      "driverUrl": "https://www.intel.com/content/www/us/en/download-center/home.html",
+      "autoDetectUrl": "https://www.intel.com/content/www/us/en/support/detect.html",
+      "latestDriverVersion": "31.0.101.5590",
+      "monitoringTools": {
+        "name": "Intel Graphics Command Center",
+        "url": "https://www.intel.com/content/www/us/en/download/19344/intel-graphics-command-center.html",
+        "description": "Intel's official tool for monitoring and optimizing Arc graphics cards.",
+        "features": ["Performance monitoring", "Game optimization", "Display settings"]
+      },
+      "instructions": [
+        "1. Visit Intel Download Center",
+        "2. Use Intel Driver & Support Assistant to auto-detect",
+        "3. Download recommended graphics drivers",
+        "4. Run the installer",
+        "5. Restart your PC after installation"
+      ]
+    }
+  },
+  "cpu": {
+    "intel": {
+      "name": "Intel",
+      "overclockingTools": {
+        "name": "Intel Extreme Tuning Utility (Intel XTU)",
+        "url": "https://www.intel.com/content/www/us/en/download/17881/intel-extreme-tuning-utility-intel-xtu.html",
+        "description": "Official Intel tool for monitoring, stress testing, and overclocking Intel CPUs.",
+        "features": ["CPU temperature monitoring", "Voltage adjustment", "Core ratio tuning", "Stress testing"],
+        "warnings": ["Only for unlocked CPUs (K-series)", "Overclocking can void warranty", "Monitor temperatures carefully"]
+      },
+      "monitoringTools": {
+        "name": "HWiNFO64 (Recommended)",
+        "url": "https://www.hwinfo.com/download/",
+        "description": "Free, comprehensive hardware monitoring tool. Shows detailed CPU temps, voltages, and speeds.",
+        "features": ["Real-time monitoring", "Sensor logging", "Minimal resource usage", "Supports all hardware"]
+      }
+    },
+    "amd": {
+      "name": "AMD",
+      "overclockingTools": {
+        "name": "AMD Ryzen Master",
+        "url": "https://www.amd.com/en/technologies/ryzen-master",
+        "description": "Official AMD tool for monitoring and overclocking Ryzen CPUs.",
+        "features": ["Real-time monitoring", "Precision Boost Overdrive", "Manual overclocking", "Profile saving"],
+        "warnings": ["Overclocking can void warranty", "Start with conservative settings", "Monitor temperatures"]
+      },
+      "monitoringTools": {
+        "name": "HWiNFO64 (Recommended)",
+        "url": "https://www.hwinfo.com/download/",
+        "description": "Free, comprehensive hardware monitoring tool. Shows detailed CPU temps, voltages, and speeds.",
+        "features": ["Real-time monitoring", "Sensor logging", "Minimal resource usage", "Supports all hardware"]
+      }
+    }
+  },
+  "motherboard": {
+    "asus": {
+      "name": "ASUS",
+      "biosUrl": "https://www.asus.com/support/download-center/",
+      "utilityUrl": "https://www.asus.com/support/FAQ/1012815/",
+      "instructions": [
+        "1. Visit ASUS Support & Download Center",
+        "2. Enter your motherboard model (e.g., ROG STRIX B450-F)",
+        "3. Go to 'Driver & Utility' section",
+        "4. Download the latest BIOS file",
+        "5. Use ASUS EZ Flash or USB BIOS Flashback to update",
+        "⚠️ NEVER interrupt a BIOS update - ensure stable power"
+      ]
+    },
+    "msi": {
+      "name": "MSI",
+      "biosUrl": "https://www.msi.com/support/download",
+      "utilityUrl": "https://www.msi.com/Landing/live-update-6",
+      "instructions": [
+        "1. Visit MSI Support page",
+        "2. Search for your motherboard model",
+        "3. Download the latest BIOS file",
+        "4. Use M-Flash utility from BIOS or MSI Live Update",
+        "5. Follow on-screen instructions carefully",
+        "⚠️ Do NOT turn off PC during BIOS update"
+      ]
+    },
+    "gigabyte": {
+      "name": "Gigabyte",
+      "biosUrl": "https://www.gigabyte.com/Support",
+      "utilityUrl": "https://www.gigabyte.com/Support/Utility",
+      "instructions": [
+        "1. Visit Gigabyte Support page",
+        "2. Select your motherboard model",
+        "3. Download latest BIOS from 'BIOS' tab",
+        "4. Use Q-Flash utility from BIOS or @BIOS in Windows",
+        "5. Follow the update wizard",
+        "⚠️ Ensure stable power during update"
+      ]
+    },
+    "asrock": {
+      "name": "ASRock",
+      "biosUrl": "https://www.asrock.com/support/download.asp",
+      "utilityUrl": "https://www.asrock.com/support/faq.asp?id=340",
+      "instructions": [
+        "1. Visit ASRock Support page",
+        "2. Find your motherboard model",
+        "3. Download latest BIOS version",
+        "4. Use Instant Flash in BIOS or ASRock Live Update",
+        "5. Complete the update process",
+        "⚠️ Never power off during BIOS update"
+      ]
+    },
+    "default": {
+      "name": "Generic",
+      "biosUrl": "https://www.google.com/search?q=",
+      "instructions": [
+        "1. Search for your motherboard manufacturer's website",
+        "2. Navigate to Support/Downloads section",
+        "3. Find your exact motherboard model",
+        "4. Download the latest BIOS file",
+        "5. Follow manufacturer's update instructions",
+        "⚠️ BIOS updates are risky - only update if necessary",
+        "⚠️ Ensure UPS or stable power during update"
+      ]
+    }
+  },
+  "windows": {
+    "updateUrl": "ms-settings:windowsupdate",
+    "manualUrl": "https://support.microsoft.com/en-us/windows/update-windows-3c5ae7fc-9fb6-9af1-1984-b5e0412c556a",
+    "instructions": [
+      "1. Press Windows key and type 'Windows Update'",
+      "2. Click 'Check for updates'",
+      "3. Install any available updates",
+      "4. Restart your PC if required",
+      "Note: Some updates may require multiple restarts"
+    ]
+  }
+}
