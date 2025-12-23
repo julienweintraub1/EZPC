@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZPC - Simple PC Health Monitoring for Windows</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0 120px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .github-button {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 50px;
+            margin-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .github-button:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #2d3748;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .feature-card p {
+            color: #718096;
+            line-height: 1.8;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .step p {
+            color: #718096;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+
+        .faq-item {
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .faq-question {
+            padding: 25px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #718096;
+            line-height: 1.8;
+        }
+
+        .security-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .security-warning strong {
+            color: #856404;
+        }
+
+        /* Download Section */
+        .download-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .download-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .download-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .version-info {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .github-button {
+                display: block;
+                margin: 15px auto 0;
+                width: fit-content;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    🖥️ EZPC
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="https://github.com/YOUR_USERNAME/EZPC" target="_blank">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Keep Your PC Running Smoothly</h1>
+            <p>Simple, safe system monitoring and update guidance for Windows</p>
+            <a href="https://github.com/YOUR_USERNAME/EZPC/releases/latest/download/EZPC_Setup.exe" class="cta-button">⬇️ Download EZPC</a>
+            <a href="https://github.com/YOUR_USERNAME/EZPC" target="_blank" class="github-button">View on GitHub</a>
+            <div class="version-info">Version 1.0 | Windows 10/11 | Free & Open Source</div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">What EZPC Does</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>System Scanning</h3>
+                    <p>Instantly detect your CPU, GPU, RAM, motherboard, and BIOS information with detailed specs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Update Checking</h3>
+                    <p>Compare your current drivers against the latest versions from NVIDIA, AMD, and Intel.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Safe Guidance</h3>
+                    <p>Get step-by-step instructions and official manufacturer links. We never modify your system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Tool Recommendations</h3>
+                    <p>Discover the best monitoring and overclocking tools for your specific hardware.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>BIOS Updates</h3>
+                    <p>Check your BIOS version and get manufacturer-specific update instructions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>100% Safe</h3>
+                    <p>Read-only system access. No modifications, no automatic installations, no risks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Download & Install</h3>
+                    <p>Download EZPC_Setup.exe and run the installer. No .NET runtime required!</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Scan Your System</h3>
+                    <p>Click "Scan System" and wait 5-10 seconds while EZPC reads your hardware info.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Review Recommendations</h3>
+                    <p>Check the "Updates & Recommendations" tab for prioritized suggestions.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Follow the Guides</h3>
+                    <p>Click "Open Update Page" to visit official manufacturer sites and update safely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ⚠️ Why does Windows show a security warning?
+                    </div>
+                    <div class="faq-answer">
+                        <div class="security-warning">
+                            <strong>This is normal for new software!</strong> EZPC is not code-signed because code signing certificates cost $100-400/year. Since this is a free, open-source project, we haven't purchased one yet.
+                        </div>
+                        <p><strong>Here's why EZPC is safe:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ <strong>Open source:</strong> All code is viewable on <a href="https://github.com/YOUR_USERNAME/EZPC" target="_blank">GitHub</a></li>
+                            <li>✅ <strong>Read-only access:</strong> EZPC only <em>reads</em> system information, never modifies anything</li>
+                            <li>✅ <strong>No network access:</strong> Works 100% offline (except when you click links)</li>
+                            <li>✅ <strong>No automatic installations:</strong> You control all updates manually</li>
+                            <li>✅ <strong>Transparent:</strong> You can inspect the code yourself or have a developer review it</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>To proceed with installation:</strong> Click "More info" → "Run anyway"</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🖥️ What operating systems are supported?
+                    </div>
+                    <div class="faq-answer">
+                        EZPC is designed for <strong>Windows 10 and Windows 11</strong> (64-bit). It may work on Windows 8.1, but this is not officially supported. Mac and Linux are not supported.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        💰 Is EZPC really free?
+                    </div>
+                    <div class="faq-answer">
+                        Yes! EZPC is completely free and open source under the MIT License. No ads, no tracking, no premium version. The source code is available on GitHub for anyone to review, use, or modify.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🔒 Does EZPC collect my data?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>No.</strong> EZPC does not collect, store, or transmit any of your system information. Everything stays on your computer. The app works 100% offline.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ⚙️ Will EZPC automatically update my drivers?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>No.</strong> EZPC never automatically installs or modifies anything. It only provides information and links to official manufacturer websites. You maintain full control over all updates.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🛠️ Do I need to install .NET or other runtimes?
+                    </div>
+                    <div class="faq-answer">
+                        No! EZPC is a self-contained application. Everything you need is included in the installer. Just download and run.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        💻 What hardware does EZPC support?
+                    </div>
+                    <div class="faq-answer">
+                        EZPC supports all modern Intel and AMD CPUs, NVIDIA, AMD, and Intel Arc GPUs, and major motherboard manufacturers (ASUS, MSI, Gigabyte, ASRock, and others).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🐛 I found a bug or have a suggestion. How do I report it?
+                    </div>
+                    <div class="faq-answer">
+                        Please open an issue on <a href="https://github.com/YOUR_USERNAME/EZPC/issues" target="_blank">GitHub</a>! I'm actively maintaining this project and appreciate all feedback.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <div class="container">
+            <h2>Ready to Keep Your PC Healthy?</h2>
+            <p>Download EZPC now and start monitoring your system</p>
+            <a href="https://github.com/YOUR_USERNAME/EZPC/releases/latest/download/EZPC_Setup.exe" class="cta-button">⬇️ Download EZPC v1.0</a>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Free • Open Source • Windows 10/11</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>EZPC © 2025 Julien Weintraub | <a href="https://github.com/YOUR_USERNAME/EZPC">GitHub</a> | <a href="https://github.com/YOUR_USERNAME/EZPC/blob/main/LICENSE">MIT License</a></p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Made with ❤️ for PC enthusiasts</p>
+        </div>
+    </footer>
+</body>
+</html>
