@@ -355,9 +355,53 @@
             <p>Simple, safe system monitoring and update guidance for Windows</p>
             <a href="https://github.com/julienweintraub1/EZPC/releases/latest/download/EZPC_Setup.exe" class="cta-button">⬇️ Download EZPC</a>
             <a href="https://github.com/julienweintraub1/EZPC" target="_blank" class="github-button">View on GitHub</a>
-            <div class="version-info">Version 1.0 | Windows 10/11 | Free & Open Source</div>
+            <div class="download-stats" style="margin-top: 15px; font-size: 16px; font-weight: 500;">
+                <span id="download-count">Loading downloads...</span>
+                <span style="opacity: 0.6; margin: 0 8px;">|</span>
+                <span class="version-info" style="background: none; padding: 0; margin: 0;">Version 1.0</span>
+            </div>
+            <div style="font-size: 14px; opacity: 0.8; margin-top: 5px;">Windows 10/11 • Free & Open Source</div>
         </div>
     </section>
+
+    <!-- ... (rest of the file) ... -->
+
+    <footer>
+        <div class="container">
+            <p>EZPC © 2025 Julien Weintraub | <a href="https://github.com/julienweintraub1/EZPC">GitHub</a> | <a href="https://github.com/julienweintraub1/EZPC/blob/main/LICENSE">MIT License</a></p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Made with ❤️ for PC enthusiasts</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const repo = 'julienweintraub1/EZPC';
+            const countElement = document.getElementById('download-count');
+            
+            fetch(`https://api.github.com/repos/${repo}/releases`)
+                .then(response => response.json())
+                .then(releases => {
+                    let totalDownloads = 0;
+                    if (Array.isArray(releases)) {
+                        releases.forEach(release => {
+                            if (release.assets) {
+                                release.assets.forEach(asset => {
+                                    totalDownloads += asset.download_count;
+                                });
+                            }
+                        });
+                        countElement.textContent = `🚀 ${totalDownloads.toLocaleString()} Downloads`;
+                    } else {
+                        countElement.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching download count:', error);
+                    countElement.style.display = 'none';
+                });
+        });
+    </script>
+</body>
 
     <section id="features" class="features">
         <div class="container">
