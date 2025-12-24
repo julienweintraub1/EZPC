@@ -1,22 +1,21 @@
 ﻿namespace EZPC.Models
 {
-    public enum UpdatePriority
+    public enum ComponentCategory
     {
-        Critical,   // Security issues or major bugs
-        High,       // Performance improvements
-        Medium,     // General updates
-        Low,        // Optional improvements
-        UpToDate    // No update needed
+        GPU,
+        CPU,
+        Storage
     }
 
-    public class UpdateRecommendation
+    public class ComponentInfo
     {
-        public string Component { get; set; }           // "GPU Driver", "Windows", etc.
-        public string CurrentVersion { get; set; }
-        public string LatestVersion { get; set; }
-        public UpdatePriority Priority { get; set; }
-        public string Description { get; set; }
-        public string UpdateUrl { get; set; }           // Link to manufacturer
-        public string Instructions { get; set; }        // Step-by-step guide
+        public ComponentCategory Category { get; set; }
+        public string Title { get; set; } = "";
+        public string Subtitle { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string ActionText { get; set; } = "";
+        public string ActionUrl { get; set; } = "";
+        public string? ExtraInfo { get; set; }
+        public bool IsActionable { get; set; }
     }
 }

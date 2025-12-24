@@ -1,118 +1,105 @@
-﻿<Window x:Class="EZPC.MainWindow"
+﻿<ui:FluentWindow x:Class="EZPC.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EZPC - PC Health Check" 
-        Height="650" 
-        Width="950"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        Title="EZPC"
+        Width="820"
+        Height="680"
+        MinWidth="600"
+        MinHeight="500"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5">
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica">
 
-    <Grid Margin="20">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="EZPC System Scanner" 
-                       FontSize="32" 
-                       FontWeight="Bold" 
-                       Foreground="#2C3E50"/>
-            <TextBlock Text="Check your PC specs and update status" 
-                       FontSize="14" 
-                       Foreground="#7F8C8D"
-                       Margin="0,5,0,0"/>
-        </StackPanel>
+        <ui:TitleBar Grid.Row="0" Title="EZPC" ShowMaximize="True" ShowMinimize="True"/>
 
-        <!-- Scan Button -->
-        <Button Grid.Row="1" 
-                x:Name="ScanButton"
-                Content="Scan System" 
-                Height="50" 
-                FontSize="18"
-                FontWeight="SemiBold"
-                Background="#3498DB"
-                Foreground="White"
-                BorderThickness="0"
-                Cursor="Hand"
-                Click="ScanButton_Click">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" 
-                                        CornerRadius="8"
-                                        Padding="20,10">
-                                    <ContentPresenter HorizontalAlignment="Center" 
-                                                    VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#2980B9"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="32,16,32,32">
+                
+                <!-- Header -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="EZPC" FontSize="28" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="StatusText" Text="Scanning..." FontSize="12" Opacity="0.5"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <ui:Button x:Name="CopyButton" ToolTip="Copy specs to clipboard" Padding="8" Margin="0,0,6,0" Click="CopyButton_Click">
+                            <ui:Button.Icon><ui:SymbolIcon Symbol="Copy24"/></ui:Button.Icon>
+                        </ui:Button>
+                        <ui:Button x:Name="RefreshButton" ToolTip="Rescan" Padding="8" Click="RefreshButton_Click">
+                            <ui:Button.Icon><ui:SymbolIcon Symbol="ArrowClockwise24"/></ui:Button.Icon>
+                        </ui:Button>
+                    </StackPanel>
+                </Grid>
 
-        <!-- Tab Control -->
-        <TabControl Grid.Row="2" 
-                    x:Name="MainTabs"
-                    Margin="0,20,0,0"
-                    Background="Transparent"
-                    BorderThickness="0">
-
-            <!-- System Specs Tab -->
-            <TabItem Header="System Specs" FontSize="14" FontWeight="SemiBold">
-                <Border Background="White" 
-                        CornerRadius="8" 
-                        Padding="20"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <TextBlock x:Name="SpecsText" 
-                                   FontFamily="Consolas"
-                                   FontSize="13"
-                                   TextWrapping="Wrap"
-                                   Foreground="#2C3E50"
-                                   Text="Click 'Scan System' to begin..."/>
-                    </ScrollViewer>
-                </Border>
-            </TabItem>
-
-            <!-- Updates Tab -->
-            <TabItem Header="Updates &amp; Recommendations" FontSize="14" FontWeight="SemiBold">
-                <Border Background="White" 
-                        CornerRadius="8" 
-                        Padding="20"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="UpdatesPanel">
-                            <TextBlock Text="Run a scan to check for updates..." 
-                                       FontSize="14"
-                                       Foreground="#7F8C8D"
-                                       TextAlignment="Center"
-                                       Margin="0,50,0,0"/>
+                <!-- System Specs Section -->
+                <TextBlock Text="SYSTEM SPECS" FontSize="12" FontWeight="SemiBold" Opacity="0.5" Margin="0,0,0,10"/>
+                
+                <!-- Row 1: CPU and GPU -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="6" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="CPU" FontSize="11" Opacity="0.5" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="CpuSpecText" Text="..." FontSize="13" FontWeight="Medium" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="CpuCoresText" Text="" FontSize="11" Opacity="0.6" Margin="0,2,0,0"/>
                         </StackPanel>
-                    </ScrollViewer>
-                </Border>
-            </TabItem>
-        </TabControl>
+                    </Border>
+                    
+                    <Border Grid.Column="2" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="6" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="GPU" FontSize="11" Opacity="0.5" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="GpuSpecText" Text="..." FontSize="13" FontWeight="Medium" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="GpuDriverText" Text="" FontSize="11" Opacity="0.6" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                
+                <!-- Row 2: RAM and Storage -->
+                <Grid Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="6" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="RAM" FontSize="11" Opacity="0.5" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="RamSpecText" Text="..." FontSize="13" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Grid.Column="2" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="6" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="STORAGE" FontSize="11" Opacity="0.5" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="StorageSpecText" Text="..." FontSize="13" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
 
-        <!-- Status Bar -->
-        <TextBlock Grid.Row="3" 
-                   x:Name="StatusText"
-                   Text="Ready" 
-                   Foreground="#7F8C8D"
-                   FontSize="12"
-                   Margin="0,10,0,0"/>
+                <!-- Recommendations Section -->
+                <TextBlock Text="RECOMMENDATIONS" FontSize="12" FontWeight="SemiBold" Opacity="0.5" Margin="0,0,0,10"/>
+                <StackPanel x:Name="ComponentsPanel"/>
+                
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
-</Window>
+</ui:FluentWindow>

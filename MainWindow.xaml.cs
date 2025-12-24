@@ -1,271 +1,215 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Media;
 using EZPC.Models;
 using EZPC.Services;
+using Wpf.Ui.Controls;
+using TextBlock = System.Windows.Controls.TextBlock;
+using StackPanel = System.Windows.Controls.StackPanel;
 
 namespace EZPC
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : FluentWindow
     {
         private readonly SystemScanner _scanner;
         private readonly VersionChecker _versionChecker;
-        private HardwareInfo _lastScanResults;
+        private HardwareInfo? _lastScan;
 
         public MainWindow()
         {
             InitializeComponent();
             _scanner = new SystemScanner();
             _versionChecker = new VersionChecker();
+            
+            Loaded += async (s, e) => await RunScan();
         }
 
-        private async void ScanButton_Click(object sender, RoutedEventArgs e)
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e) => await RunScan();
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            ScanButton.IsEnabled = false;
-            StatusText.Text = "Scanning system...";
-            SpecsText.Text = "Please wait, scanning hardware...\n\nThis may take 5-10 seconds.";
-            UpdatesPanel.Children.Clear();
+            if (_lastScan == null) return;
+
+            var sb = new StringBuilder();
+            sb.AppendLine("=== EZPC System Report ===");
+            sb.AppendLine();
+            sb.AppendLine($"CPU: {_lastScan.CpuName}");
+            sb.AppendLine($"Cores: {_lastScan.CpuCores} | Threads: {_lastScan.CpuThreads}");
+            sb.AppendLine();
+            sb.AppendLine($"GPU: {_lastScan.GpuName}");
+            sb.AppendLine($"Driver: {_lastScan.GpuDriverVersion}");
+            sb.AppendLine();
+            sb.AppendLine($"RAM: {_lastScan.TotalRamGB} GB");
+            sb.AppendLine();
+            sb.AppendLine("Storage:");
+            foreach (var drive in _lastScan.Drives)
+            {
+                sb.AppendLine($"  {drive.DriveLetter} ({drive.MediaType}) - {drive.FreeSpaceGB}GB free of {drive.CapacityGB}GB");
+                sb.AppendLine($"    {drive.Name}");
+            }
+
+            Clipboard.SetText(sb.ToString());
+            
+            var originalText = StatusText.Text;
+            StatusText.Text = "Copied to clipboard!";
+            var timer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromSeconds(1.5) };
+            timer.Tick += (s, e) => { StatusText.Text = originalText; timer.Stop(); };
+            timer.Start();
+        }
+
+        private async Task RunScan()
+        {
+            RefreshButton.IsEnabled = false;
+            StatusText.Text = "Scanning...";
 
             try
             {
-                // Run the scan
-                _lastScanResults = await _scanner.ScanSystemAsync();
+                _lastScan = await _scanner.ScanSystemAsync();
+                
+                // Update System Specs
+                CpuSpecText.Text = Truncate(_lastScan.CpuName, 40);
+                CpuCoresText.Text = $"{_lastScan.CpuCores} Cores / {_lastScan.CpuThreads} Threads";
+                
+                GpuSpecText.Text = Truncate(_lastScan.GpuName, 40);
+                GpuDriverText.Text = $"Driver: {_lastScan.GpuDriverVersion}";
+                
+                RamSpecText.Text = $"{_lastScan.TotalRamGB} GB";
+                
+                // Storage summary
+                if (_lastScan.Drives.Count > 0)
+                {
+                    var totalFree = _lastScan.Drives.Sum(d => d.FreeSpaceGB);
+                    var totalCap = _lastScan.Drives.Sum(d => d.CapacityGB);
+                    StorageSpecText.Text = $"{totalFree} GB free of {totalCap} GB";
+                }
+                
+                // Get and display recommendations
+                var components = _versionChecker.GetRecommendations(_lastScan);
+                DisplayComponents(components);
 
-                // Display specs
-                DisplaySystemSpecs(_lastScanResults);
-
-                // Check for updates
-                var recommendations = _versionChecker.CheckForUpdates(_lastScanResults);
-                DisplayUpdateRecommendations(recommendations);
-
-                StatusText.Text = $"Scan completed! Found {recommendations.Count} recommendations.";
+                StatusText.Text = $"Last scan: {DateTime.Now:h:mm tt}";
             }
             catch (Exception ex)
             {
-                SpecsText.Text = $"ERROR: {ex.Message}\n\nPlease run as administrator if permission issues occur.";
-                StatusText.Text = "Scan failed.";
+                StatusText.Text = $"Error: {ex.Message}";
             }
             finally
             {
-                ScanButton.IsEnabled = true;
+                RefreshButton.IsEnabled = true;
             }
         }
 
-        private void DisplaySystemSpecs(HardwareInfo results)
+        private void DisplayComponents(List<ComponentInfo> components)
         {
-            var output = new StringBuilder();
-            output.AppendLine("═══════════════════════════════════════════════");
-            output.AppendLine("  SYSTEM SCAN COMPLETE");
-            output.AppendLine("═══════════════════════════════════════════════");
-            output.AppendLine($"Scan Date: {results.ScanDate:yyyy-MM-dd HH:mm:ss}");
-            output.AppendLine();
+            ComponentsPanel.Children.Clear();
 
-            output.AppendLine("━━━ PROCESSOR ━━━");
-            output.AppendLine($"Model: {results.CpuName ?? "Unknown"}");
-            output.AppendLine($"Manufacturer: {results.CpuManufacturer ?? "Unknown"}");
-            output.AppendLine($"Cores: {results.CpuCores}");
-            output.AppendLine($"Threads: {results.CpuThreads}");
-            output.AppendLine();
-
-            output.AppendLine("━━━ GRAPHICS CARD ━━━");
-            output.AppendLine($"Model: {results.GpuName ?? "Unknown"}");
-            output.AppendLine($"Manufacturer: {results.GpuManufacturer ?? "Unknown"}");
-            output.AppendLine($"Driver Version: {results.GpuDriverVersion ?? "Unknown"}");
-            output.AppendLine($"Driver Date: {results.GpuDriverDate ?? "Unknown"}");
-            output.AppendLine();
-
-            output.AppendLine("━━━ MEMORY ━━━");
-            output.AppendLine($"Total RAM: {results.TotalRamGB} GB");
-            output.AppendLine();
-
-            output.AppendLine("━━━ MOTHERBOARD & BIOS ━━━");
-            output.AppendLine($"Manufacturer: {results.MotherboardManufacturer ?? "Unknown"}");
-            output.AppendLine($"Model: {results.MotherboardModel ?? "Unknown"}");
-            output.AppendLine($"BIOS Version: {results.BiosVersion ?? "Unknown"}");
-            output.AppendLine($"BIOS Date: {results.BiosDate ?? "Unknown"}");
-            output.AppendLine();
-
-            output.AppendLine("━━━ OPERATING SYSTEM ━━━");
-            output.AppendLine($"Version: {results.WindowsVersion ?? "Unknown"}");
-            output.AppendLine($"Build: {results.WindowsBuild ?? "Unknown"}");
-            output.AppendLine();
-            output.AppendLine("═══════════════════════════════════════════════");
-
-            SpecsText.Text = output.ToString();
-        }
-
-        private void DisplayUpdateRecommendations(System.Collections.Generic.List<UpdateRecommendation> recommendations)
-        {
-            UpdatesPanel.Children.Clear();
-
-            if (recommendations == null || recommendations.Count == 0)
+            foreach (var comp in components)
             {
-                var noUpdates = new TextBlock
-                {
-                    Text = "No update recommendations available.",
-                    FontSize = 14,
-                    Foreground = new SolidColorBrush(Color.FromRgb(127, 140, 141)),
-                    TextAlignment = TextAlignment.Center,
-                    Margin = new Thickness(0, 50, 0, 0)
-                };
-                UpdatesPanel.Children.Add(noUpdates);
-                return;
-            }
-
-            foreach (var rec in recommendations)
-            {
-                var card = CreateUpdateCard(rec);
-                UpdatesPanel.Children.Add(card);
+                var card = CreateComponentCard(comp);
+                ComponentsPanel.Children.Add(card);
             }
         }
 
-        private Border CreateUpdateCard(UpdateRecommendation rec)
+        private UIElement CreateComponentCard(ComponentInfo comp)
         {
-            var priorityColor = rec.Priority switch
+            var expander = new CardExpander
             {
-                UpdatePriority.Critical => Color.FromRgb(231, 76, 60),   // Red
-                UpdatePriority.High => Color.FromRgb(230, 126, 34),      // Orange
-                UpdatePriority.Medium => Color.FromRgb(241, 196, 15),    // Yellow
-                UpdatePriority.Low => Color.FromRgb(52, 152, 219),       // Blue
-                UpdatePriority.UpToDate => Color.FromRgb(46, 204, 113),  // Green
-                _ => Color.FromRgb(149, 165, 166)                        // Gray
+                Margin = new Thickness(0, 0, 0, 8),
+                IsExpanded = comp.Category == ComponentCategory.GPU
             };
 
-            var card = new Border
+            var headerPanel = new StackPanel();
+            headerPanel.Children.Add(new TextBlock
             {
-                Background = Brushes.White,
-                BorderBrush = new SolidColorBrush(priorityColor),
-                BorderThickness = new Thickness(3, 0, 0, 0),
-                CornerRadius = new CornerRadius(4),
-                Padding = new Thickness(15),
-                Margin = new Thickness(0, 0, 0, 15)
-            };
-
-            var cardContent = new StackPanel();
-
-            // Header with component name and priority badge
-            var header = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 10) };
-
-            var componentName = new TextBlock
+                Text = comp.Title,
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 14
+            });
+            headerPanel.Children.Add(new TextBlock
             {
-                Text = rec.Component,
-                FontSize = 16,
-                FontWeight = FontWeights.Bold,
-                Foreground = new SolidColorBrush(Color.FromRgb(44, 62, 80)),
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            header.Children.Add(componentName);
+                Text = comp.Subtitle,
+                FontSize = 12,
+                Opacity = 0.65,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                MaxWidth = 550
+            });
 
-            var priorityBadge = new Border
-            {
-                Background = new SolidColorBrush(priorityColor),
-                CornerRadius = new CornerRadius(3),
-                Padding = new Thickness(8, 2, 8, 2),
-                Margin = new Thickness(10, 0, 0, 0)
-            };
-            priorityBadge.Child = new TextBlock
-            {
-                Text = rec.Priority.ToString().ToUpper(),
-                FontSize = 10,
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White
-            };
-            header.Children.Add(priorityBadge);
+            expander.Header = headerPanel;
 
-            cardContent.Children.Add(header);
-
-            // Version info
-            if (rec.Priority != UpdatePriority.UpToDate)
+            expander.Icon = new SymbolIcon
             {
-                var versionInfo = new TextBlock
+                Symbol = comp.Category switch
                 {
-                    FontSize = 12,
-                    Foreground = new SolidColorBrush(Color.FromRgb(127, 140, 141)),
-                    Margin = new Thickness(0, 0, 0, 8)
-                };
-                versionInfo.Inlines.Add(new Run("Current: ") { FontWeight = FontWeights.SemiBold });
-                versionInfo.Inlines.Add(new Run(rec.CurrentVersion));
-                versionInfo.Inlines.Add(new Run("  →  Latest: ") { FontWeight = FontWeights.SemiBold });
-                versionInfo.Inlines.Add(new Run(rec.LatestVersion) { Foreground = new SolidColorBrush(priorityColor) });
-                cardContent.Children.Add(versionInfo);
-            }
-
-            // Description
-            var description = new TextBlock
-            {
-                Text = rec.Description,
-                FontSize = 13,
-                Foreground = new SolidColorBrush(Color.FromRgb(52, 73, 94)),
-                TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 0, 0, 12)
+                    ComponentCategory.GPU => SymbolRegular.VideoClip24,
+                    ComponentCategory.CPU => SymbolRegular.Board24,
+                    ComponentCategory.Storage => SymbolRegular.Storage24,
+                    _ => SymbolRegular.Info24
+                }
             };
-            cardContent.Children.Add(description);
 
-            // Instructions (collapsible)
-            if (!string.IsNullOrEmpty(rec.Instructions))
+            var contentPanel = new StackPanel { Margin = new Thickness(4, 8, 4, 4) };
+
+            foreach (var line in comp.Description.Split('\n'))
             {
-                var instructionsExpander = new Expander
+                if (string.IsNullOrWhiteSpace(line)) 
                 {
-                    Header = "Show Update Instructions",
-                    FontSize = 12,
-                    Margin = new Thickness(0, 5, 0, 10)
-                };
-
-                var instructionsText = new TextBlock
+                    contentPanel.Children.Add(new System.Windows.Controls.Separator { Opacity = 0, Height = 6 });
+                    continue;
+                }
+                
+                contentPanel.Children.Add(new TextBlock
                 {
-                    Text = rec.Instructions,
-                    FontSize = 12,
-                    FontFamily = new FontFamily("Consolas"),
-                    Foreground = new SolidColorBrush(Color.FromRgb(52, 73, 94)),
+                    Text = line,
                     TextWrapping = TextWrapping.Wrap,
-                    Margin = new Thickness(10, 10, 0, 0)
-                };
-                instructionsExpander.Content = instructionsText;
-                cardContent.Children.Add(instructionsExpander);
+                    FontSize = 13,
+                    Opacity = line.StartsWith("⚠️") || line.StartsWith("📊") || line.StartsWith("⚡") || line.StartsWith("💾") || line.StartsWith("💡") ? 0.9 : 0.7,
+                    Margin = new Thickness(0, 0, 0, 3)
+                });
             }
 
-            // Action button
-            if (!string.IsNullOrEmpty(rec.UpdateUrl) && rec.Priority != UpdatePriority.UpToDate)
+            if (!string.IsNullOrEmpty(comp.ExtraInfo))
             {
-                var button = new Button
+                contentPanel.Children.Add(new TextBlock
                 {
-                    Content = "Open Update Page",
-                    Background = new SolidColorBrush(priorityColor),
-                    Foreground = Brushes.White,
-                    BorderThickness = new Thickness(0),
-                    Padding = new Thickness(15, 8, 15, 8),
-                    Cursor = System.Windows.Input.Cursors.Hand,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    FontWeight = FontWeights.SemiBold
-                };
-
-                button.Click += (s, e) => OpenUrl(rec.UpdateUrl);
-                cardContent.Children.Add(button);
+                    Text = comp.ExtraInfo,
+                    FontSize = 11,
+                    Opacity = 0.5,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(0, 6, 0, 0)
+                });
             }
 
-            card.Child = cardContent;
-            return card;
+            if (comp.IsActionable && !string.IsNullOrEmpty(comp.ActionUrl))
+            {
+                var btn = new Wpf.Ui.Controls.Button
+                {
+                    Content = comp.ActionText,
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Open24 },
+                    Appearance = ControlAppearance.Primary,
+                    Padding = new Thickness(14, 8, 14, 8),
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+                btn.Click += (s, e) => OpenUrl(comp.ActionUrl);
+                contentPanel.Children.Add(btn);
+            }
+
+            expander.Content = contentPanel;
+            return expander;
         }
 
-        private void OpenUrl(string url)
+        private static string Truncate(string? text, int max)
+        {
+            if (string.IsNullOrEmpty(text)) return "Unknown";
+            return text.Length <= max ? text : text[..(max - 1)] + "…";
+        }
+
+        private static void OpenUrl(string url)
         {
             try
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = url,
-                    UseShellExecute = true
-                });
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Could not open URL: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            catch { }
         }
     }
 }

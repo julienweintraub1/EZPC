@@ -6,10 +6,15 @@
       "autoDetectUrl": "https://www.nvidia.com/en-us/geforce/drivers/",
       "latestDriverVersion": "566.14",
       "monitoringTools": {
-        "name": "MSI Afterburner (Recommended)",
+        "name": "MSI Afterburner",
         "url": "https://www.msi.com/Landing/afterburner/graphics-cards",
         "description": "Free tool for GPU monitoring, temperature tracking, and safe overclocking.",
-        "features": ["Real-time temperature monitoring", "Fan speed control", "Safe overclocking", "Performance graphs"]
+        "features": [
+          "Real-time temperature monitoring",
+          "Fan speed control",
+          "Safe overclocking",
+          "Performance graphs"
+        ]
       },
       "instructions": [
         "1. Visit the NVIDIA Driver Downloads page",
@@ -23,13 +28,19 @@
     "amd": {
       "name": "AMD",
       "driverUrl": "https://www.amd.com/en/support",
-      "autoDetectUrl": "https://www.amd.com/en/support/auto-detect-tool",
+      "autoDetectUrl": "https://www.amd.com/en/support/download/drivers.html",
       "latestDriverVersion": "24.12.1",
       "monitoringTools": {
         "name": "AMD Radeon Software",
         "url": "https://www.amd.com/en/support",
         "description": "AMD's official software includes built-in monitoring, tuning, and overclocking features.",
-        "features": ["Performance monitoring", "Temperature tracking", "Radeon Chill", "Performance tuning", "Auto overclocking"]
+        "features": [
+          "Performance monitoring",
+          "Temperature tracking",
+          "Radeon Chill",
+          "Performance tuning",
+          "Auto overclocking"
+        ]
       },
       "instructions": [
         "1. Visit AMD Support and Downloads page",
@@ -44,12 +55,16 @@
       "name": "Intel",
       "driverUrl": "https://www.intel.com/content/www/us/en/download-center/home.html",
       "autoDetectUrl": "https://www.intel.com/content/www/us/en/support/detect.html",
-      "latestDriverVersion": "31.0.101.5590",
+      "latestDriverVersion": "32.0.101.6253",
       "monitoringTools": {
-        "name": "Intel Graphics Command Center",
-        "url": "https://www.intel.com/content/www/us/en/download/19344/intel-graphics-command-center.html",
+        "name": "Intel Arc Control",
+        "url": "https://www.intel.com/content/www/us/en/products/docs/discrete-gpus/arc/software/arc-control.html",
         "description": "Intel's official tool for monitoring and optimizing Arc graphics cards.",
-        "features": ["Performance monitoring", "Game optimization", "Display settings"]
+        "features": [
+          "Performance monitoring",
+          "Game optimization",
+          "Display settings"
+        ]
       },
       "instructions": [
         "1. Visit Intel Download Center",
@@ -64,17 +79,31 @@
     "intel": {
       "name": "Intel",
       "overclockingTools": {
-        "name": "Intel Extreme Tuning Utility (Intel XTU)",
+        "name": "Intel Extreme Tuning Utility (XTU)",
         "url": "https://www.intel.com/content/www/us/en/download/17881/intel-extreme-tuning-utility-intel-xtu.html",
         "description": "Official Intel tool for monitoring, stress testing, and overclocking Intel CPUs.",
-        "features": ["CPU temperature monitoring", "Voltage adjustment", "Core ratio tuning", "Stress testing"],
-        "warnings": ["Only for unlocked CPUs (K-series)", "Overclocking can void warranty", "Monitor temperatures carefully"]
+        "features": [
+          "CPU temperature monitoring",
+          "Voltage adjustment",
+          "Core ratio tuning",
+          "Stress testing"
+        ],
+        "warnings": [
+          "Only for unlocked CPUs (K-series)",
+          "Overclocking can void warranty",
+          "Monitor temperatures carefully"
+        ]
       },
       "monitoringTools": {
-        "name": "HWiNFO64 (Recommended)",
+        "name": "HWiNFO64",
         "url": "https://www.hwinfo.com/download/",
         "description": "Free, comprehensive hardware monitoring tool. Shows detailed CPU temps, voltages, and speeds.",
-        "features": ["Real-time monitoring", "Sensor logging", "Minimal resource usage", "Supports all hardware"]
+        "features": [
+          "Real-time monitoring",
+          "Sensor logging",
+          "Minimal resource usage",
+          "Supports all hardware"
+        ]
       }
     },
     "amd": {
@@ -83,14 +112,28 @@
         "name": "AMD Ryzen Master",
         "url": "https://www.amd.com/en/technologies/ryzen-master",
         "description": "Official AMD tool for monitoring and overclocking Ryzen CPUs.",
-        "features": ["Real-time monitoring", "Precision Boost Overdrive", "Manual overclocking", "Profile saving"],
-        "warnings": ["Overclocking can void warranty", "Start with conservative settings", "Monitor temperatures"]
+        "features": [
+          "Real-time monitoring",
+          "Precision Boost Overdrive",
+          "Manual overclocking",
+          "Profile saving"
+        ],
+        "warnings": [
+          "Overclocking can void warranty",
+          "Start with conservative settings",
+          "Monitor temperatures"
+        ]
       },
       "monitoringTools": {
-        "name": "HWiNFO64 (Recommended)",
+        "name": "HWiNFO64",
         "url": "https://www.hwinfo.com/download/",
         "description": "Free, comprehensive hardware monitoring tool. Shows detailed CPU temps, voltages, and speeds.",
-        "features": ["Real-time monitoring", "Sensor logging", "Minimal resource usage", "Supports all hardware"]
+        "features": [
+          "Real-time monitoring",
+          "Sensor logging",
+          "Minimal resource usage",
+          "Supports all hardware"
+        ]
       }
     }
   },
@@ -101,7 +144,7 @@
       "utilityUrl": "https://www.asus.com/support/FAQ/1012815/",
       "instructions": [
         "1. Visit ASUS Support & Download Center",
-        "2. Enter your motherboard model (e.g., ROG STRIX B450-F)",
+        "2. Enter your motherboard model",
         "3. Go to 'Driver & Utility' section",
         "4. Download the latest BIOS file",
         "5. Use ASUS EZ Flash or USB BIOS Flashback to update",
@@ -110,7 +153,7 @@
     },
     "msi": {
       "name": "MSI",
-      "biosUrl": "https://www.msi.com/support/download",
+      "biosUrl": "https://www.msi.com/support",
       "utilityUrl": "https://www.msi.com/Landing/live-update-6",
       "instructions": [
         "1. Visit MSI Support page",
@@ -136,7 +179,7 @@
     },
     "asrock": {
       "name": "ASRock",
-      "biosUrl": "https://www.asrock.com/support/download.asp",
+      "biosUrl": "https://www.asrock.com/support/index.asp",
       "utilityUrl": "https://www.asrock.com/support/faq.asp?id=340",
       "instructions": [
         "1. Visit ASRock Support page",
@@ -149,15 +192,14 @@
     },
     "default": {
       "name": "Generic",
-      "biosUrl": "https://www.google.com/search?q=",
+      "biosUrl": "",
       "instructions": [
         "1. Search for your motherboard manufacturer's website",
         "2. Navigate to Support/Downloads section",
         "3. Find your exact motherboard model",
         "4. Download the latest BIOS file",
         "5. Follow manufacturer's update instructions",
-        "⚠️ BIOS updates are risky - only update if necessary",
-        "⚠️ Ensure UPS or stable power during update"
+        "⚠️ BIOS updates are risky - only update if necessary"
       ]
     }
   },
