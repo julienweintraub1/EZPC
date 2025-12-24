@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -93,12 +94,12 @@
             text-decoration: none;
             border-radius: 50px;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         .github-button {
@@ -149,7 +150,7 @@
 
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .feature-icon {
@@ -166,6 +167,17 @@
         .feature-card p {
             color: #718096;
             line-height: 1.8;
+        }
+
+        .badge-soon {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         /* How It Works */
@@ -283,7 +295,7 @@
 
         .version-info {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
             border-radius: 20px;
             margin-bottom: 30px;
@@ -330,6 +342,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -353,31 +366,215 @@
         <div class="container">
             <h1>Keep Your PC Running Smoothly</h1>
             <p>Simple, safe system monitoring and update guidance for Windows</p>
-            <a href="https://github.com/julienweintraub1/EZPC/releases/latest/download/EZPC_Setup.exe" class="cta-button">⬇️ Download EZPC</a>
+            <a href="https://github.com/julienweintraub1/EZPC/releases/latest/download/EZPC_Setup.exe"
+                class="cta-button">⬇️ Download EZPC</a>
             <a href="https://github.com/julienweintraub1/EZPC" target="_blank" class="github-button">View on GitHub</a>
             <div class="download-stats" style="margin-top: 15px; font-size: 16px; font-weight: 500;">
                 <span id="download-count">Loading downloads...</span>
                 <span style="opacity: 0.6; margin: 0 8px;">|</span>
-                <span class="version-info" style="background: none; padding: 0; margin: 0;">Version 1.0</span>
+                <span class="version-info" style="background: none; padding: 0; margin: 0;">Version 2.0</span>
             </div>
             <div style="font-size: 14px; opacity: 0.8; margin-top: 5px;">Windows 10/11 • Free & Open Source</div>
         </div>
     </section>
 
-    <!-- ... (rest of the file) ... -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">What EZPC Does</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>System Scanning</h3>
+                    <p>Instantly detects your CPU, GPU, RAM, and Storage information.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Update Checking</h3>
+                    <p>Compare your current drivers against the latest versions for your specific CPU, GPU, and Storage.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Safe Guidance</h3>
+                    <p>Get step-by-step instructions and official manufacturer links. We never modify your system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <div class="badge-soon">Coming Soon</div>
+                    <h3>RAM Speed Check</h3>
+                    <p>We'll check if your RAM is running at its advertised speed (XMP/EXPO) and help you fix it.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Tool Recommendations</h3>
+                    <p>Discover the best monitoring and benchmarking tools for your specific hardware.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>100% Safe</h3>
+                    <p>Read-only system access. No modifications, no automatic installations, no risks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Download & Install</h3>
+                    <p>Download EZPC_Setup.exe and run the installer. No .NET runtime required!</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Auto-Scan</h3>
+                    <p>Launch the app. EZPC automatically scans your hardware in seconds—no clicks needed.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Review Recommendations</h3>
+                    <p>See prioritized driver updates and tool suggestions for your PC.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Follow the Guides</h3>
+                    <p>Click "Open Update Page" to visit official manufacturer sites and update safely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ⚠️ Why does Windows show a security warning?
+                    </div>
+                    <div class="faq-answer">
+                        <div class="security-warning">
+                            <strong>This is normal for new software!</strong> EZPC is not code-signed because code
+                            signing certificates cost $100-400/year. Since this is a free, open-source project, we
+                            haven't purchased one yet.
+                        </div>
+                        <p><strong>Here's why EZPC is safe:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ <strong>Open source:</strong> All code is viewable on <a
+                                    href="https://github.com/julienweintraub1/EZPC" target="_blank">GitHub</a></li>
+                            <li>✅ <strong>Read-only access:</strong> EZPC only <em>reads</em> system information, never
+                                modifies anything</li>
+                            <li>✅ <strong>No network access:</strong> Works 100% offline (except when you click links)
+                            </li>
+                            <li>✅ <strong>No automatic installations:</strong> You control all updates manually</li>
+                            <li>✅ <strong>Transparent:</strong> You can inspect the code yourself or have a developer
+                                review it</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>To proceed with installation:</strong> Click "More info" →
+                            "Run anyway"</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🖥️ What operating systems are supported?
+                    </div>
+                    <div class="faq-answer">
+                        EZPC is designed for <strong>Windows 10 and Windows 11</strong> (64-bit). It may work on Windows
+                        8.1, but this is not officially supported. Mac and Linux are not supported.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        💰 Is EZPC really free?
+                    </div>
+                    <div class="faq-answer">
+                        Yes! EZPC is completely free and open source under the MIT License. No ads, no tracking, no
+                        premium version. The source code is available on GitHub for anyone to review, use, or modify.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🔒 Does EZPC collect my data?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>No.</strong> EZPC does not collect, store, or transmit any of your system information.
+                        Everything stays on your computer. The app works 100% offline.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ⚙️ Will EZPC automatically update my drivers?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>No.</strong> EZPC never automatically installs or modifies anything. It only provides
+                        information and links to official manufacturer websites. You maintain full control over all
+                        updates.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🛠️ Do I need to install .NET or other runtimes?
+                    </div>
+                    <div class="faq-answer">
+                        No! EZPC is a self-contained application. Everything you need is included in the installer. Just
+                        download and run.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        💻 What hardware does EZPC support?
+                    </div>
+                    <div class="faq-answer">
+                        EZPC supports all modern Intel and AMD CPUs, NVIDIA, AMD, and Intel Arc GPUs, System RAM, and
+                        Storage devices.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        🐛 I found a bug or have a suggestion. How do I report it?
+                    </div>
+                    <div class="faq-answer">
+                        Please open an issue on <a href="https://github.com/julienweintraub1/EZPC/issues"
+                            target="_blank">GitHub</a>! I'm actively maintaining this project and appreciate all
+                        feedback.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <div class="container">
+            <h2>Ready to Keep Your PC Healthy?</h2>
+            <p>Download EZPC now and start monitoring your system</p>
+            <a href="https://github.com/julienweintraub1/EZPC/releases/latest/download/EZPC_Setup.exe"
+                class="cta-button">⬇️ Download EZPC v2.0</a>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Free • Open Source • Windows 10/11</p>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
-            <p>EZPC © 2025 Julien Weintraub | <a href="https://github.com/julienweintraub1/EZPC">GitHub</a> | <a href="https://github.com/julienweintraub1/EZPC/blob/main/LICENSE">MIT License</a></p>
+            <p>EZPC © 2025 Julien Weintraub | <a href="https://github.com/julienweintraub1/EZPC">GitHub</a> | <a
+                    href="https://github.com/julienweintraub1/EZPC/blob/main/LICENSE">MIT License</a></p>
             <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Made with ❤️ for PC enthusiasts</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const repo = 'julienweintraub1/EZPC';
             const countElement = document.getElementById('download-count');
-            
+
             fetch(`https://api.github.com/repos/${repo}/releases`)
                 .then(response => response.json())
                 .then(releases => {
@@ -403,176 +600,4 @@
     </script>
 </body>
 
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">What EZPC Does</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>System Scanning</h3>
-                    <p>Instantly detect your CPU, GPU, RAM, motherboard, and BIOS information with detailed specs.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Update Checking</h3>
-                    <p>Compare your current drivers against the latest versions from NVIDIA, AMD, and Intel.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📖</div>
-                    <h3>Safe Guidance</h3>
-                    <p>Get step-by-step instructions and official manufacturer links. We never modify your system.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌡️</div>
-                    <h3>Tool Recommendations</h3>
-                    <p>Discover the best monitoring and overclocking tools for your specific hardware.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>BIOS Updates</h3>
-                    <p>Check your BIOS version and get manufacturer-specific update instructions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>100% Safe</h3>
-                    <p>Read-only system access. No modifications, no automatic installations, no risks.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Download & Install</h3>
-                    <p>Download EZPC_Setup.exe and run the installer. No .NET runtime required!</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Scan Your System</h3>
-                    <p>Click "Scan System" and wait 5-10 seconds while EZPC reads your hardware info.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Review Recommendations</h3>
-                    <p>Check the "Updates & Recommendations" tab for prioritized suggestions.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Follow the Guides</h3>
-                    <p>Click "Open Update Page" to visit official manufacturer sites and update safely.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        ⚠️ Why does Windows show a security warning?
-                    </div>
-                    <div class="faq-answer">
-                        <div class="security-warning">
-                            <strong>This is normal for new software!</strong> EZPC is not code-signed because code signing certificates cost $100-400/year. Since this is a free, open-source project, we haven't purchased one yet.
-                        </div>
-                        <p><strong>Here's why EZPC is safe:</strong></p>
-                        <ul style="margin-left: 20px; margin-top: 10px;">
-                            <li>✅ <strong>Open source:</strong> All code is viewable on <a href="https://github.com/julienweintraub1/EZPC" target="_blank">GitHub</a></li>
-                            <li>✅ <strong>Read-only access:</strong> EZPC only <em>reads</em> system information, never modifies anything</li>
-                            <li>✅ <strong>No network access:</strong> Works 100% offline (except when you click links)</li>
-                            <li>✅ <strong>No automatic installations:</strong> You control all updates manually</li>
-                            <li>✅ <strong>Transparent:</strong> You can inspect the code yourself or have a developer review it</li>
-                        </ul>
-                        <p style="margin-top: 15px;"><strong>To proceed with installation:</strong> Click "More info" → "Run anyway"</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        🖥️ What operating systems are supported?
-                    </div>
-                    <div class="faq-answer">
-                        EZPC is designed for <strong>Windows 10 and Windows 11</strong> (64-bit). It may work on Windows 8.1, but this is not officially supported. Mac and Linux are not supported.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        💰 Is EZPC really free?
-                    </div>
-                    <div class="faq-answer">
-                        Yes! EZPC is completely free and open source under the MIT License. No ads, no tracking, no premium version. The source code is available on GitHub for anyone to review, use, or modify.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        🔒 Does EZPC collect my data?
-                    </div>
-                    <div class="faq-answer">
-                        <strong>No.</strong> EZPC does not collect, store, or transmit any of your system information. Everything stays on your computer. The app works 100% offline.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        ⚙️ Will EZPC automatically update my drivers?
-                    </div>
-                    <div class="faq-answer">
-                        <strong>No.</strong> EZPC never automatically installs or modifies anything. It only provides information and links to official manufacturer websites. You maintain full control over all updates.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        🛠️ Do I need to install .NET or other runtimes?
-                    </div>
-                    <div class="faq-answer">
-                        No! EZPC is a self-contained application. Everything you need is included in the installer. Just download and run.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        💻 What hardware does EZPC support?
-                    </div>
-                    <div class="faq-answer">
-                        EZPC supports all modern Intel and AMD CPUs, NVIDIA, AMD, and Intel Arc GPUs, and major motherboard manufacturers (ASUS, MSI, Gigabyte, ASRock, and others).
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        🐛 I found a bug or have a suggestion. How do I report it?
-                    </div>
-                    <div class="faq-answer">
-                        Please open an issue on <a href="https://github.com/julienweintraub1/EZPC/issues" target="_blank">GitHub</a>! I'm actively maintaining this project and appreciate all feedback.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="download-section">
-        <div class="container">
-            <h2>Ready to Keep Your PC Healthy?</h2>
-            <p>Download EZPC now and start monitoring your system</p>
-            <a href="https://github.com/julienweintraub1/EZPC/releases/latest/download/EZPC_Setup.exe" class="cta-button">⬇️ Download EZPC v1.0</a>
-            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Free • Open Source • Windows 10/11</p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>EZPC © 2025 Julien Weintraub | <a href="https://github.com/julienweintraub1/EZPC">GitHub</a> | <a href="https://github.com/julienweintraub1/EZPC/blob/main/LICENSE">MIT License</a></p>
-            <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Made with ❤️ for PC enthusiasts</p>
-        </div>
-    </footer>
-</body>
 </html>
