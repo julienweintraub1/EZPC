@@ -28,7 +28,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\weint\OneDrive\Desktop
 OutputBaseFilename=EZPC_setup
-SetupIconFile=C:\Users\weint\OneDrive\Desktop\New Project\PCHealthCheck\EZPC\ezpcicon.ico
+SetupIconFile=C:\Users\weint\OneDrive\Desktop\EZPC\EZPC\ezpcicon.ico
 SolidCompression=yes
 WizardStyle=modern dynamic
 UninstallDisplayIcon={app}\ezpcicon.ico
@@ -40,8 +40,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\weint\OneDrive\Desktop\EZPC_v1_WithIcon\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\weint\OneDrive\Desktop\New Project\PCHealthCheck\EZPC\ezpcicon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\weint\OneDrive\Desktop\EZPC\EZPC\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\weint\OneDrive\Desktop\EZPC\EZPC\ezpcicon.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\.myp\OpenWithProgids"; ValueType: string; ValueName: "EZPC.myp"; ValueData: ""; Flags: uninsdeletevalue
